@@ -88,7 +88,7 @@ public :
 		if (cn.getConector()) {
 			string buscar;
 
-			cout << "Buscar: ";
+			cout << "Buscar por titulo o autor: ";
 			getline(cin, buscar);
 
 			cout << setw(75) << " DATOS DE LOS LIBROS " << endl;
@@ -130,7 +130,7 @@ public :
 			string id_l = to_string(id_libro);
 			string p = to_string(precio);
 			string c = to_string(cantidad);
-			string insertar = "UPDATE libro  set titulo = '" +titulo+ "', autor = '" +autor+ "', fecha_publicacion = '" +fecha_publicacion+ "', precio = '" +p+ "', genero = '" +genero+ ", cantidad ='" +c+ "' ' WHERE id_libro = '"+id_l+"' ;";
+			string insertar = "UPDATE libro SET titulo = '" +titulo+ "', autor = '" +autor+ "', fecha_publicacion = '" +fecha_publicacion+ "', precio = '" +p+ "', genero = '" +genero+ "', cantidad = '" +c+ "' WHERE id_libro = '"+id_l+"' ;";
 			const char* i = insertar.c_str();
 
 			q_estado = mysql_query(cn.getConector(), i);

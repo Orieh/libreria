@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip>
 #include <sstream>
 #include <cstdlib>
 #include "Libreria.h"
@@ -10,6 +11,9 @@ int main() {
     int menu, id_libro = 0, cantidad = 0;
     double precio = 0;
     string titulo, autor, fecha_publicacion, genero;
+
+    //tiempo
+    tm tiempo{};
 
     //validar datos
     string cad;
@@ -31,7 +35,7 @@ int main() {
 
 
     while (true) {
-        cout << "\nQue desea hacer? \n1. Buscar \n2. Agregar\n3. Editar\n4. Eliminar\n5. Salir" << endl;
+        cout << "\n1. Buscar \n2. Agregar\n3. Editar\n4. Eliminar por ID\n5. Salir" << endl;
         cout << endl;
 
         while (true) {
@@ -48,6 +52,7 @@ int main() {
 
         case 1:
             system("title Libreria: Busqueda");
+            system("cls");
 
             l.Buscar();
 
@@ -55,6 +60,7 @@ int main() {
 
         case 2:
             system("title Libreria: Creando");
+            system("cls");
 
             cout << "Ingrese el titulo del libro: ";
             getline(cin, titulo);
@@ -62,8 +68,20 @@ int main() {
             cout << "Ingrese el autor: ";
             getline(cin, autor);
 
-            cout << "Ingrese la fecha de publicacion: ";
-            getline(cin, fecha_publicacion);
+            
+            
+            while (true) {
+                cout << "Ingrese la fecha de publicacion (YYYY-MM-DD): ";
+                cin >> fecha_publicacion;
+
+                stringstream ss(fecha_publicacion);
+
+                if (ss >> get_time(&tiempo, "%Y-%m-%d")) { break; }
+                cout << "Error: la fecha tiene que ser en formato adecuado" << endl;
+            
+            }
+
+            cin.ignore();
 
             cout << "Ingrese el genero: ";
             getline(cin, genero);
@@ -74,7 +92,7 @@ int main() {
                 stringstream mystream(cad);
 
                 if (mystream >> precio and precio > 0) { break; }
-                cout << "Error: ingrese un numero real" << endl;
+                cout << "Error: ingrese un numero real y mayor a cero" << endl;
 
             }
 
@@ -102,6 +120,8 @@ int main() {
 
         case 3:
             system("title Libreria: Editando");
+            system("cls");
+
 
             while (true) {
                 cout << "Ingrese el id del libro a editar: ";
@@ -109,7 +129,7 @@ int main() {
                 stringstream mystream(cad);
 
                 if (mystream >> id_libro and id_libro > 0) { break; }
-                cout << "Error: ingrese un numero disponible" << endl;
+                cout << "Error: ingrese un numero mayor a cero" << endl;
 
             }
 
@@ -119,8 +139,18 @@ int main() {
             cout << "Ingrese el autor: ";
             getline(cin, autor);
 
-            cout << "Ingrese la fecha de publicacion: ";
-            getline(cin, fecha_publicacion);
+            while (true) {
+                cout << "Ingrese la fecha de publicacion (YYYY-MM-DD): ";
+                cin >> fecha_publicacion;
+
+                stringstream ss(fecha_publicacion);
+
+                if (ss >> get_time(&tiempo, "%Y-%m-%d")) { break; }
+                cout << "Error: la fecha tiene que ser en formato adecuado" << endl;
+
+            }
+            cin.ignore();
+
 
             cout << "Ingrese el genero: ";
             getline(cin, genero);
@@ -159,9 +189,17 @@ int main() {
 
         case 4:
             system("title Libreria: Eliminando");
+            system("cls");
 
-            cout << "Ingrese la id del libro: ";
-            cin >> id_libro;
+
+            while (true) {
+                cout << "Ingrese la ID del libro: ";
+                getline(cin, cad);
+                stringstream mystream(cad);
+
+                if (mystream >> id_libro and id_libro > 0) { break; }
+                cout << "Error: ingrese un numero mayor a cero" << endl << endl;
+            }
             
             l.setId_libro(id_libro);
 
